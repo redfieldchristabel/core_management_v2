@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+// This formatter however can be customized according your need (dev use).
+// Please refer responsive framework documentation in pub.dev for more information
+
 /// A widget that formats the child widget based on the screen size.
 ///
 /// It uses [ResponsiveBreakpoints] from [responsive_framework] package to determine
@@ -8,9 +11,6 @@ import 'package:responsive_framework/responsive_framework.dart';
 ///
 /// The class takes in a [child] parameter of type [Widget], which is the widget
 /// that needs to be formatted based on the screen size.
-/// This formatter however can be customized according your need.
-/// Please refer responsive framework documentation in pub.dev for more information
-
 class ScreenLayoutFormatter extends StatelessWidget {
   const ScreenLayoutFormatter({Key? key,
   required this.child}) : super(key: key);
