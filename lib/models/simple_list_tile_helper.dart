@@ -2,10 +2,10 @@
 
 import 'package:core_management_v2/mixins/simple_list_tile_mixin.dart';
 
-///class to represent SimpleListTile String thant have extend simpleListTile Mixin
-///make sure to use this wrapper if the simple list tile doesnt need to perform any
-///comparable logic like select or else.
-///usually use for [String] or [Enum] only
+/// class to represent SimpleListTile String that have extend simpleListTile Mixin
+/// make sure to use this wrapper if the simple list tile doesnt need to perform any
+/// comparable logic like select or else.
+/// usually use for [String] or [Enum] only
 class SimpleListTileWrapper<T>
     with SimpleListTileMixin<SimpleListTileWrapper<T>> {
   final T value;
