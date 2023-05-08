@@ -8,8 +8,10 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  flip_card: ^0.7.0
   flutter:
     sdk: flutter
+  flutter_flip_card: ^0.0.4
   fluttertoast: ^8.2.1
   image_picker: ^0.8.7+4
   intl: ^0.18.1
