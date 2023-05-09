@@ -3,6 +3,7 @@ import 'package:core_management_v2/core_management_v2.dart';
 import 'package:flutter/material.dart';
 import 'package:optimization_battery/optimization_battery.dart';
 
+//TODO make it modular and customizable by consumer
 class EnableNotificationsAlert extends StatelessWidget {
   const EnableNotificationsAlert({Key? key}) : super(key: key);
 
