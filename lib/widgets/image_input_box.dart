@@ -301,7 +301,6 @@ class _ImageInputBoxState<T extends ImageInputBoxNetwork>
   }
 }
 
-//TODO include this in Core management Model
 //TODO create new mixin for this widget to only take generic Type that implement that mixin
 ///model for only this widget,
 class ImageInputBoxInstance<T extends ImageInputBoxNetwork> {
