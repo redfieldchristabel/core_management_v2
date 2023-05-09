@@ -91,9 +91,9 @@ class NotificationService {
   ///
   /// Example usage:
   /// ```dart
-  /// await notificationService.initialiseChanel();
+  /// await notificationService.initializeChanel();
   /// ```
-  Future<void> initialiseChanel() async {
+  Future<void> initializeChanel() async {
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()

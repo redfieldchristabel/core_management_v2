@@ -8,11 +8,14 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  firebase_messaging: ^14.5.0
   flip_card: ^0.7.0
   flutter:
     sdk: flutter
   flutter_flip_card: ^0.0.4
+  flutter_local_notifications: ^14.0.0+1
   fluttertoast: ^8.2.1
+  http: ^0.13.6
   image_picker: ^0.8.7+4
   intl: ^0.18.1
   responsive_framework: ^1.0.0
