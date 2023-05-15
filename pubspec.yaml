@@ -17,7 +17,7 @@ dependencies:
   fluttertoast: ^8.2.1
   http: ^0.13.6
   image_picker: ^0.8.7+4
-  intl: ^0.17.0
+  intl: ^0.18.0
   optimization_battery: ^0.0.7
   responsive_framework: ^1.0.0
 
