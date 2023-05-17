@@ -10,6 +10,9 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 /// It utilizes the [FlutterLocalNotificationsPlugin] for displaying local notifications and the
 /// [FirebaseMessaging] plugin for handling remote notifications.
 class NotificationService {
+
+
+
   /// The instance of the FlutterLocalNotificationsPlugin used for displaying local notifications.
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();

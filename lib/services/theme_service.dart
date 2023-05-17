@@ -3,17 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class ThemeService {
-  CardTheme _cardTheme(ThemeData themeData, bool darkMode) {
-    return themeData.cardTheme.copyWith(
-      color: darkMode
-          ? ElevationOverlay.applySurfaceTint(
-              HexColor.fromHex('#121212'),
-              Colors.white,
-              1,
-            )
-          : HexColor.fromHex('#F8FAFB'),
-    );
+abstract class BaseThemeService {
+  Color get colorSeed;
+
+  CardTheme cardTheme(ThemeData themeData, bool darkMode) {
+    return themeData.cardTheme;
   }
 
   /// Creates an `ElevatedButtonThemeData` object based on the specified parameters.
@@ -503,7 +497,7 @@ class ThemeService {
         primaryContainer: const Color(0xFF00B6F0),
       ),
       cardColor: lighten(primaryColor, .13),
-      cardTheme: _cardTheme(themeData, darkMode),
+      cardTheme: cardTheme(themeData, darkMode),
       elevatedButtonTheme: _elevatedButtonTheme(darkMode),
       iconTheme: themeData.iconTheme.copyWith(
         color: darkMode ? const Color(0xFF253840) : const Color(0xFFFEFEFE),
