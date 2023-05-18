@@ -42,8 +42,11 @@ abstract class BaseThemeService {
       inputDecorationTheme: inputDecorationTheme(innerThemeData, darkMode),
       tabBarTheme: tabBarTheme(innerThemeData, darkMode),
       textTheme: textTheme(innerThemeData, darkMode, darkColor),
+      floatingActionButtonTheme: floatingActionButtonTheme(innerThemeData),
     );
   }
+
+  FloatingActionButtonThemeData floatingActionButtonTheme(ThemeData innerThemeData) => innerThemeData.floatingActionButtonTheme;
 
   CardTheme cardTheme(ThemeData themeData, bool darkMode) {
     return themeData.cardTheme;
