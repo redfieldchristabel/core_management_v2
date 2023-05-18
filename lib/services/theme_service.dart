@@ -46,7 +46,9 @@ abstract class BaseThemeService {
     );
   }
 
-  FloatingActionButtonThemeData floatingActionButtonTheme(ThemeData innerThemeData) => innerThemeData.floatingActionButtonTheme;
+  FloatingActionButtonThemeData floatingActionButtonTheme(
+          ThemeData innerThemeData) =>
+      innerThemeData.floatingActionButtonTheme;
 
   CardTheme cardTheme(ThemeData themeData, bool darkMode) {
     return themeData.cardTheme;
