@@ -5,4 +5,8 @@ abstract class BaseFrameworkService {
   ThemeData getThemeData(BaseThemeService themeService) {
     return themeService.createThemeDataByColorSeed();
   }
+
+  RouterConfig get goRouterConfig =>
+      throw UnimplementedError('Please override getRouterConfig in '
+          'framework service if you wat to use this go router');
 }
