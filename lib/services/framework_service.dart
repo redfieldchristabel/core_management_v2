@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 abstract class BaseFrameworkService {
   BaseThemeService get themeService;
 
-  ThemeData getThemeData() {
+  ThemeData get themeData {
     return themeService.createThemeDataByColorSeed();
   }
 }
