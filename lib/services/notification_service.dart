@@ -9,10 +9,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 ///
 /// It utilizes the [FlutterLocalNotificationsPlugin] for displaying local notifications and the
 /// [FirebaseMessaging] plugin for handling remote notifications.
-class NotificationService {
-
-
-
+abstract class BaseNotificationService {
   /// The instance of the FlutterLocalNotificationsPlugin used for displaying local notifications.
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
@@ -127,25 +124,27 @@ class NotificationService {
             notification.hashCode,
             notification.title,
             notification.body,
-            NotificationDetails(
-              android: android != null
-                  ? AndroidNotificationDetails(
-                      channel.id,
-                      channel.name,
-                      channelDescription: channel.description,
-                      icon: android.smallIcon,
-                      // other properties...
-                    )
-                  : null,
-              iOS: const DarwinNotificationDetails(
-                presentAlert: true,
-                threadIdentifier: "sppc",
-              ),
-            ),
+            _notificationDetails,
             payload: json.encode(message.data),
           )
           .then((value) => print("iksn 6"));
     }
+  }
+
+  NotificationDetails get _notificationDetails {
+    return NotificationDetails(
+      android: AndroidNotificationDetails(
+        channel.id,
+        channel.name,
+        channelDescription: channel.description,
+        icon: 'ic_launcher.pnge',
+        // other properties...
+      ),
+      iOS: const DarwinNotificationDetails(
+        presentAlert: true,
+        threadIdentifier: "sppc",
+      ),
+    );
   }
 
   /// A handler that handles a notification response after the app is terminated.
@@ -203,7 +202,10 @@ class NotificationService {
 
     // await routeService.routeNavigator(uri, routeEntryList);
   }
-}
 
-/// An instance of the NotificationService class to be used for notification handling.
-final NotificationService notificationService = NotificationService();
+  Future<void> show() async {
+    await flutterLocalNotificationsPlugin.show(
+        0, 'plain title', 'plain body', _notificationDetails,
+        payload: 'item x');
+  }
+}
