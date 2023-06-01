@@ -7,13 +7,8 @@ class ThemeService extends BaseThemeService {
   @override
   Color get colorSeed => Colors.purple;
 
-
   @override
   AppBarTheme appBarTheme(ThemeData themeData, bool darkMode) {
-    // TODO: implement appBarTheme
     return super.appBarTheme(themeData, darkMode);
   }
-
-
-
 }
