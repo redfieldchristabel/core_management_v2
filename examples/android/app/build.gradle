@@ -27,7 +27,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     namespace "com.example.examples"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion "25.1.8937393"
 
     compileOptions {

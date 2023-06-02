@@ -3,7 +3,11 @@ import 'package:examples/services/notification_service.dart';
 import 'package:examples/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await notificationService.initialiseChanel();
+  await notificationService.initializeFlutterLocalNotificationPlugin();
+
   runApp(const MyApp());
 }
 
@@ -64,7 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const LoadingScreen(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          notificationService.show();
+          notificationService.show(
+              title: "IKAN2", description: 'adhkahdkwajda');
         },
       ),
     );

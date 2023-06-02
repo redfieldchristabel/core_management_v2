@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-/// The [NotificationService] class handles local and remote notifications in a Flutter application.
+/// The [BaseNotificationService] class handles local and remote notifications in a Flutter application.
 ///
 /// It utilizes the [FlutterLocalNotificationsPlugin] for displaying local notifications and the
 /// [FirebaseMessaging] plugin for handling remote notifications.
@@ -23,10 +23,18 @@ abstract class BaseNotificationService {
     importance: Importance.max,
   );
 
+  /// A default channel used by the [show] method to display a notification.
+  ///
+  /// Override this getter to use a custom channel.
+  ///
+  /// You need to rerun your Flutter application if you
+  /// override this method.
+  AndroidNotificationChannel get defaultChanel => channel;
+
   /// The initialization settings for the Android platform.
-  var initializationSettingsAndroid = const AndroidInitializationSettings(
-    '@mipmap/launcher_icon',
-  ); // <- default icon name is @mipmap/ic_launcher
+  get initializationSettingsAndroid => AndroidInitializationSettings(
+        defaultIcon,
+      ); // <- default icon name is @mipmap/ic_launcher
 
   /// The initialization settings for the iOS platform.
   var initializationSettingIOS = const DarwinInitializationSettings(
@@ -36,13 +44,19 @@ abstract class BaseNotificationService {
     requestCriticalPermission: true,
   );
 
+  /// will create a new channel or update existing channel
+  Future<void> initialiseChanel() async {
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(defaultChanel);
+  }
+
   /// Constructs a new instance of the [NotificationService] class.
   ///
   /// It initializes the Flutter Local Notifications plugin by calling [initializeFlutterLocalNotificationPlugin].
   /// It also sets up the callback for handling notification opening when the app is in the foreground.
-  NotificationService() {
-    initializeFlutterLocalNotificationPlugin();
-
+  BaseNotificationService() {
     FirebaseMessaging.onMessageOpenedApp
         .listen((message) => onDidReceiveNotificationResponse(
               NotificationResponse(
@@ -65,7 +79,7 @@ abstract class BaseNotificationService {
   /// ```dart
   /// final initializationSettings = InitializationSettings(
   ///   android: initializationSettingsAndroid,
-  ///   iOS: initializationSettingIOS,
+  ///   iOS: initializationSettingsIOS,
   /// );
   ///
   /// await notificationService.initializeFlutterLocalNotificationPlugin();
@@ -83,6 +97,11 @@ abstract class BaseNotificationService {
       initializationSettings,
       onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
     );
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestPermission();
   }
 
   /// Creates a new notification channel or updates an existing one.
@@ -134,10 +153,10 @@ abstract class BaseNotificationService {
   NotificationDetails get _notificationDetails {
     return NotificationDetails(
       android: AndroidNotificationDetails(
-        channel.id,
-        channel.name,
-        channelDescription: channel.description,
-        icon: 'ic_launcher.pnge',
+        defaultChanel.id,
+        defaultChanel.name,
+        channelDescription: defaultChanel.description,
+        icon: defaultIcon,
         // other properties...
       ),
       iOS: const DarwinNotificationDetails(
@@ -146,6 +165,9 @@ abstract class BaseNotificationService {
       ),
     );
   }
+
+  /// Override this to change default icon use by [show] method.
+  String get defaultIcon => '@mipmap/ic_launcher';
 
   /// A handler that handles a notification response after the app is terminated.
   Future<void> notificationOnOpenAppHandler() async {
@@ -203,9 +225,28 @@ abstract class BaseNotificationService {
     // await routeService.routeNavigator(uri, routeEntryList);
   }
 
-  Future<void> show() async {
+  /// Displays a local notification.
+  ///
+  /// The [id] parameter specifies the unique identifier for the notification.
+  /// The [title] parameter is the title of the notification.
+  /// The [description] parameter is the description or body text of the notification.
+  /// The optional [payload] parameter can be used to attach additional data to the notification.
+  /// The optional [notificationDetails] parameter can be used to use custom notification detail.
+  ///
+  /// Throws an exception if an error occurs while showing the notification.
+  Future<void> show({
+    int id = 0,
+    required String title,
+    required String description,
+    String? payload,
+    NotificationDetails? notificationDetails,
+  }) async {
     await flutterLocalNotificationsPlugin.show(
-        0, 'plain title', 'plain body', _notificationDetails,
-        payload: 'item x');
+      id,
+      title,
+      description,
+      notificationDetails ?? _notificationDetails,
+      payload: payload,
+    );
   }
 }
