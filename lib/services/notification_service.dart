@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -13,6 +13,8 @@ abstract class BaseNotificationService {
   /// The instance of the FlutterLocalNotificationsPlugin used for displaying local notifications.
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   /// The Android notification channel for high importance notifications.
   static const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -52,19 +54,56 @@ abstract class BaseNotificationService {
         ?.createNotificationChannel(defaultChanel);
   }
 
+  /// override this method to handle client FCM token
+  /// like saving in your database or else.
+  ///
+  /// call super or leave this ,method to print back the token to console.
+  FutureOr handleClientToken(String? token) {
+    if (kDebugMode) {
+      print('FCM token is ----------------- $token');
+    }
+  }
+
+  void onForegroundNotification(RemoteMessage event) {
+    show(
+        id: event.notification.hashCode,
+        title: event.notification?.title ?? "takde",
+        description: event.notification?.body ?? 'tiada');
+  }
+
   /// Constructs a new instance of the [NotificationService] class.
   ///
   /// It initializes the Flutter Local Notifications plugin by calling [initializeFlutterLocalNotificationPlugin].
   /// It also sets up the callback for handling notification opening when the app is in the foreground.
-  BaseNotificationService() {
-    FirebaseMessaging.onMessageOpenedApp
-        .listen((message) => onDidReceiveNotificationResponse(
-              NotificationResponse(
-                notificationResponseType:
-                    NotificationResponseType.selectedNotification,
-                payload: json.encode(message.data),
-              ),
-            ));
+  BaseNotificationService(
+      [Future<void> Function(RemoteMessage message)?
+          fcmBackgroundNotificationHandler]) {
+    // get FCM token
+    messaging.getToken().then(handleClientToken);
+
+    // listen to FCM token on refresh
+    FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+      handleClientToken(fcmToken);
+    });
+
+    // listen on Foreground message.
+    FirebaseMessaging.onMessage.listen(onForegroundNotification);
+
+    if (fcmBackgroundNotificationHandler != null) {
+      FirebaseMessaging.onBackgroundMessage(fcmBackgroundNotificationHandler);
+    }
+
+    // listen on FCM notification's response like on tap or on action tap.
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) => onDidReceiveNotificationResponse(
+        NotificationResponse(
+          notificationResponseType:
+              NotificationResponseType.selectedNotification,
+          payload: json.encode(message.data),
+        ),
+        message,
+      ),
+    );
   }
 
   /// Initializes the Flutter Local Notifications plugin.
@@ -119,37 +158,6 @@ abstract class BaseNotificationService {
         ?.createNotificationChannel(channel);
   }
 
-  /// Handles a foreground notification by displaying it to the user.
-  ///
-  /// [message] The remote message containing the notification data.
-  /// [context] The BuildContext object for displaying the notification.
-  void handleForegroundNotification(
-    RemoteMessage message, {
-    required BuildContext context,
-  }) {
-    print("ikan");
-    RemoteNotification? notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
-    AppleNotification? apple = message.notification?.apple;
-    print("ikan : ${notification?.apple == null}");
-
-    // If `onMessage` is triggered with a notification, construct our own
-    // local notification to show to users using the created channel.
-    if (notification != null) {
-      print("ikan 4");
-
-      flutterLocalNotificationsPlugin
-          .show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            _notificationDetails,
-            payload: json.encode(message.data),
-          )
-          .then((value) => print("iksn 6"));
-    }
-  }
-
   NotificationDetails get _notificationDetails {
     return NotificationDetails(
       android: AndroidNotificationDetails(
@@ -169,6 +177,7 @@ abstract class BaseNotificationService {
   /// Override this to change default icon use by [show] method.
   String get defaultIcon => '@mipmap/ic_launcher';
 
+  //TODO review
   /// A handler that handles a notification response after the app is terminated.
   Future<void> notificationOnOpenAppHandler() async {
     if (kDebugMode) {
@@ -204,12 +213,12 @@ abstract class BaseNotificationService {
     }
   }
 
-  /// Handles the notification response.
+  /// Handles the notification response for FCM and local.
   ///
   /// [notificationResponse] The notification response object.
   Future<void> onDidReceiveNotificationResponse(
-    NotificationResponse notificationResponse,
-  ) async {
+      NotificationResponse notificationResponse,
+      [RemoteMessage? message]) async {
     print("run this noty : every, \npayload : ${notificationResponse.payload}");
 
     if (notificationResponse.payload == null) return;
