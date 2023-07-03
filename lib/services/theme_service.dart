@@ -43,6 +43,7 @@ abstract class BaseThemeService {
       tabBarTheme: tabBarTheme(innerThemeData, darkMode),
       textTheme: textTheme(innerThemeData, darkMode, darkColor),
       floatingActionButtonTheme: floatingActionButtonTheme(innerThemeData),
+      bottomNavigationBarTheme: bottomNavigationBarTheme(innerThemeData),
     );
   }
 
@@ -388,4 +389,8 @@ abstract class BaseThemeService {
       innerThemeData.listTileTheme;
 
   IconThemeData iconTheme(ThemeData innerThemeData) => innerThemeData.iconTheme;
+
+  bottomNavigationBarTheme(ThemeData innerThemeData) {
+    return innerThemeData.bottomNavigationBarTheme;
+  }
 }

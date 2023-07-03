@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\mokta\AndroidStudioProjects\core_management_v2"
+export "FLUTTER_ROOT=/home/hayabusa/Developement/flutter"
+export "FLUTTER_APPLICATION_PATH=/home/hayabusa/StudioProjects/core_management_v2"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.0.1"
