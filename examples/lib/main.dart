@@ -1,16 +1,14 @@
 import 'package:examples/screens/loading_screen.dart';
 import 'package:examples/services/notification_service.dart';
-import 'package:examples/widgets/loading_animation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   await notificationService.initialiseChanel();
   await notificationService.initializeFlutterLocalNotificationPlugin();
 
