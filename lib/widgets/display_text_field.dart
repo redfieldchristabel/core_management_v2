@@ -23,11 +23,11 @@ class DisplayTextField extends StatelessWidget {
           children: [
             TextSpan(
               text: label,
-              style: themeData.textTheme.caption!.copyWith(color: Colors.black),
+              style: themeData.textTheme.bodySmall!.copyWith(color: Colors.black),
             ),
             TextSpan(
               text: value,
-              style: themeData.textTheme.caption!
+              style: themeData.textTheme.bodySmall!
                   .copyWith(color: Colors.black54, overflow: TextOverflow.clip),
             ),
           ],

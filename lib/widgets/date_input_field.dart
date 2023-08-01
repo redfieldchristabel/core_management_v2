@@ -45,7 +45,7 @@ class _DateInputFieldState extends State<DateInputField> {
       ) ??
           InputDecoration(
             labelText: widget.labelText ?? 'date',
-            prefixIcon: widget.prefixIcon ?? Icon(Icons.calendar_month),
+            prefixIcon: widget.prefixIcon ?? const Icon(Icons.calendar_month),
           ),
       readOnly: true,
       //set it true, so that user will not able to edit text

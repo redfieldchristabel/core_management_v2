@@ -44,7 +44,7 @@ class _DisplayTextFieldBoxState extends State<DisplayTextFieldBox> {
           flipOnTouch: false,
           front: Card(
             elevation: widget.isCard ? null : 0,
-            color: themeData.backgroundColor,
+            color: themeData.colorScheme.background,
             child: Padding(
               padding: const EdgeInsets.all(13.0),
               child: DisplayTextField(label: widget.label, value: widget.value),

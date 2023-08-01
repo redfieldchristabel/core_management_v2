@@ -1,6 +1,5 @@
 import 'package:examples/screens/loading_screen.dart';
 import 'package:examples/services/notification_service.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 

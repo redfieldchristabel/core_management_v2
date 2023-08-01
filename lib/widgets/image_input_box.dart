@@ -51,19 +51,16 @@ class _ImageInputBoxState<T extends ImageInputBoxNetwork>
   ValueNotifier<List<ImageInputBoxInstance<T>>>(List.empty(growable: true));
 
   void selectImages() async {
-    final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
+    final List<XFile> selectedImages = await imagePicker.pickMultiImage();
 
-    if (selectedImages != null) {
-      //call callback function
-      widget.onPick?.call(selectedImages.map((e) => File(e.path)).toList());
+    widget.onPick?.call(selectedImages.map((e) => File(e.path)).toList());
 
-      //save file to value notifier
-      final List<ImageInputBoxInstance> imageFile =
-      List<ImageInputBoxInstance>.from(imagePathNotifier.value);
-      imageFile.addAll(selectedImages
-          .map((e) => ImageInputBoxInstance<T>(file: File(e.path))));
-      imagePathNotifier.value = List<ImageInputBoxInstance<T>>.from(imageFile);
-    }
+    //save file to value notifier
+    final List<ImageInputBoxInstance> imageFile =
+    List<ImageInputBoxInstance>.from(imagePathNotifier.value);
+    imageFile.addAll(selectedImages
+        .map((e) => ImageInputBoxInstance<T>(file: File(e.path))));
+    imagePathNotifier.value = List<ImageInputBoxInstance<T>>.from(imageFile);
 
     Navigator.pop(context);
   }

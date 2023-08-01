@@ -254,8 +254,9 @@ class _SimpleListTileDismissibleState<T extends SimpleListTileMixin<T>>
                       widget.valueNotifier.value = List.from(value);
                     }
 
-                    if (widget.onDismissed == null)
+                    if (widget.onDismissed == null) {
                       return removeFromIndex();
+                    }
 
                     widget.onDismissed
                         ?.call(direction, removeFromIndex, indexValue);
