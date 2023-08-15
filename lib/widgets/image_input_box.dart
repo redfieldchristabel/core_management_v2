@@ -260,6 +260,10 @@ class _ImageInputBoxState<T extends ImageInputBoxMixin>
                                                     curve: Curves.easeIn,
                                                   );
 
+                                                  final topPadding = context
+                                                          .screenSize.height *
+                                                      0.1;
+
                                                   final radiosAnimation =
                                                       TweenSequence([
                                                     TweenSequenceItem(
@@ -290,11 +294,16 @@ class _ImageInputBoxState<T extends ImageInputBoxMixin>
                                                                           child,
                                                                           frame,
                                                                           wasSynchronouslyLoaded) {
-                                                                        return ClipRRect(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(radiosAnimation.value),
+                                                                        return Padding(
+                                                                          padding:
+                                                                              EdgeInsets.only(top: topPadding * curveRadiosAnimation.value),
                                                                           child:
-                                                                              child,
+                                                                              ClipRRect(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(radiosAnimation.value),
+                                                                            child:
+                                                                                child,
+                                                                          ),
                                                                         );
                                                                       },
                                                                       fit: BoxFit
