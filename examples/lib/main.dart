@@ -1,13 +1,16 @@
+import 'package:core_management_v2/core_management_v2.dart';
 import 'package:examples/screens/loading_screen.dart';
 import 'package:examples/services/notification_service.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await notificationService.initialiseChanel();
   await notificationService.initializeFlutterLocalNotificationPlugin();
 
@@ -68,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const LoadingScreen(),
+      body: const ImageInputBox(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           notificationService.show(
