@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:core_management_v2/extensions/screen_layout_extension.dart';
+import 'package:core_management_v2/mixins/image_input_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -347,13 +348,7 @@ class ImageInputBoxInstance<T extends ImageInputBoxMixin> {
   }
 }
 
-///implement this mixin within your class
-///so it can be generic type of [ImageInputBoxInstance]
-///class,
-mixin ImageInputBoxMixin {
-  ///get [File] instance from any source including network or such
-  Future<File> get file;
-}
+
 
 ///implement this mixin within your class
 ///so it can be generic type of [ImageInputBoxInstance]

@@ -4,6 +4,7 @@ export 'extensions/date_time_extension.dart';
 export 'extensions/hex_color.dart';
 export 'extensions/screen_layout_extension.dart';
 export 'mixins/simple_list_tile_mixin.dart';
+export 'mixins/image_input_box.dart';
 export 'models/simple_list_tile_helper.dart';
 export 'widgets/date_input_field.dart';
 export 'widgets/display_text_field.dart';
