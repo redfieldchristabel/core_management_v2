@@ -181,28 +181,15 @@ class _ImageInputBoxState<T extends ImageInputBoxMixin>
                                       builder: (context, snapshot) {
                                         ValueNotifier<bool> activeNotifier =
                                             ValueNotifier(true);
+
+                                        // final TweenSequence<Animation<double>>
+                                        //     tweenSequence =
+                                        //     TweenSequence<Animation<double>>([
+                                        //   TweenSequenceItem(
+                                        //       tween: Tween<double>(begin: 100, end: 1), weight: .9)
+                                        // ]);
                                         return snapshot.hasData
-                                            ? CupertinoContextMenu(
-                                                previewBuilder: (BuildContext
-                                                        context,
-                                                    Animation<double> animation,
-                                                    Widget child) {
-                                                  return FittedBox(
-                                                    fit: BoxFit.cover,
-                                                    // This ClipRRect rounds the corners of the image when the
-                                                    // CupertinoContextMenu is open, even though it's not rounded when
-                                                    // it's closed. It uses the given animation to animate the corners
-                                                    // in sync with the opening animation.
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              64.0 *
-                                                                  animation
-                                                                      .value),
-                                                      child: child,
-                                                    ),
-                                                  );
-                                                },
+                                            ? CupertinoContextMenu.builder(
                                                 actions: [
                                                   if (!widget.disableInput)
                                                     CupertinoContextMenuAction(
@@ -258,28 +245,71 @@ class _ImageInputBoxState<T extends ImageInputBoxMixin>
                                                     child: const Text("close"),
                                                   ),
                                                 ],
-                                                child: ValueListenableBuilder<
-                                                        bool>(
-                                                    valueListenable:
-                                                        activeNotifier,
-                                                    builder:
-                                                        (context, value, _) {
-                                                      return value
-                                                          ? ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                              child: Image.file(
-                                                                snapshot.data!,
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ),
-                                                            )
-                                                          : const IgnorePointer(
-                                                              child:
-                                                                  CupertinoActivityIndicator());
-                                                    }),
+                                                enableHapticFeedback: true,
+                                                builder: (BuildContext context,
+                                                    Animation<double>
+                                                        animation) {
+                                                  final double? animationValue =
+                                                      animation.value > 0.01
+                                                          ? null
+                                                          : 100;
+
+                                                  final curveRadiosAnimation =
+                                                      CurvedAnimation(
+                                                    parent: animation,
+                                                    curve: Curves.easeIn,
+                                                  );
+
+                                                  final radiosAnimation =
+                                                      TweenSequence([
+                                                    TweenSequenceItem(
+                                                        tween: Tween<double>(
+                                                            begin: 8, end: 45),
+                                                        weight: 0.1),
+                                                    TweenSequenceItem(
+                                                        tween: Tween<double>(
+                                                            begin: 45, end: 0),
+                                                        weight: 0.9),
+                                                  ]).animate(
+                                                          curveRadiosAnimation);
+
+                                                  return FittedBox(
+                                                    fit: BoxFit.cover,
+                                                    child:
+                                                        ValueListenableBuilder<
+                                                                bool>(
+                                                            valueListenable:
+                                                                activeNotifier,
+                                                            builder: (context,
+                                                                value, _) {
+                                                              return value
+                                                                  ? Image.file(
+                                                                      snapshot
+                                                                          .data!,
+                                                                      frameBuilder: (context,
+                                                                          child,
+                                                                          frame,
+                                                                          wasSynchronouslyLoaded) {
+                                                                        return ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(radiosAnimation.value),
+                                                                          child:
+                                                                              child,
+                                                                        );
+                                                                      },
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      height:
+                                                                          animationValue,
+                                                                      width:
+                                                                          animationValue,
+                                                                    )
+                                                                  : const IgnorePointer(
+                                                                      child:
+                                                                          CupertinoActivityIndicator());
+                                                            }),
+                                                  );
+                                                },
                                               )
                                             : const CupertinoActivityIndicator();
                                       })),
