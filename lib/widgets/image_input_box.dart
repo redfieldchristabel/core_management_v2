@@ -19,7 +19,7 @@ class ImageInputBox<T extends ImageInputBoxMixin> extends StatefulWidget {
   final void Function(List<ImageInputBoxInstance>)? onChange;
   final void Function(List<File>)? onPick;
   final void Function(T)? onDestruction;
-  final void Function(T)? onLocalDestruction;
+  final void Function(File)? onLocalDestruction;
   final List<T>? initialImages;
 
   const ImageInputBox(
@@ -81,7 +81,7 @@ class _ImageInputBoxState<T extends ImageInputBoxMixin>
       imagePathNotifier.value = List<ImageInputBoxInstance<T>>.from(imageFile);
     }
 
-    Navigator.pop(context);
+    if (mounted) Navigator.pop(context);
   }
 
   @override
@@ -225,8 +225,9 @@ class _ImageInputBoxState<T extends ImageInputBoxMixin>
                                                             null) {
                                                           widget
                                                               .onLocalDestruction
-                                                              ?.call(imageInstance
-                                                                  .fileNetwork!);
+                                                              ?.call(
+                                                                  imageInstance
+                                                                      .file!);
                                                         } else {
                                                           widget.onDestruction
                                                               ?.call(imageInstance
@@ -347,8 +348,6 @@ class ImageInputBoxInstance<T extends ImageInputBoxMixin> {
     }
   }
 }
-
-
 
 ///implement this mixin within your class
 ///so it can be generic type of [ImageInputBoxInstance]
