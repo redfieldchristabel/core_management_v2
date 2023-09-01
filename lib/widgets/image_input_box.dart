@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:core_management_v2/extensions/screen_layout_extension.dart';
 import 'package:core_management_v2/mixins/image_input_box.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 /// widget to simply display all image
 /// [onPick] an event that will trigger when
 /// the pick an Image action from device is complete
-class ImageInputBox<T extends ImageInputBoxMixin> extends StatefulWidget {
+class ImageInputBox<T extends ImageInputBoxBase> extends StatefulWidget {
   final double? width;
   final EdgeInsetsGeometry? margin;
   final double? maximumHeight;
@@ -42,7 +43,7 @@ class ImageInputBox<T extends ImageInputBoxMixin> extends StatefulWidget {
   State<ImageInputBox<T>> createState() => _ImageInputBoxState<T>();
 }
 
-class _ImageInputBoxState<T extends ImageInputBoxMixin>
+class _ImageInputBoxState<T extends ImageInputBoxBase>
     extends State<ImageInputBox<T>> {
   final ImagePicker imagePicker = ImagePicker();
 
@@ -87,7 +88,7 @@ class _ImageInputBoxState<T extends ImageInputBoxMixin>
   @override
   void initState() {
     imagePathNotifier.value = widget.initialImages
-            ?.map((e) => ImageInputBoxInstance(fileNetwork: e))
+            ?.map((e) => ImageInputBoxInstance(sourceInstance: e))
             .toList() ??
         List.empty(growable: true);
     imagePathNotifier.addListener(() {
@@ -176,154 +177,12 @@ class _ImageInputBoxState<T extends ImageInputBoxMixin>
                                         color: Colors.blue,
                                       ),
                                     )
-                                  : FutureBuilder<File>(
-                                      future: imageInstance.fileNetwork?.file ??
-                                          Future.value(imageInstance.file!),
-                                      builder: (context, snapshot) {
-                                        ValueNotifier<bool> activeNotifier =
-                                            ValueNotifier(true);
-
-                                        // final TweenSequence<Animation<double>>
-                                        //     tweenSequence =
-                                        //     TweenSequence<Animation<double>>([
-                                        //   TweenSequenceItem(
-                                        //       tween: Tween<double>(begin: 100, end: 1), weight: .9)
-                                        // ]);
-                                        return snapshot.hasData
-                                            ? CupertinoContextMenu.builder(
-                                                actions: [
-                                                  if (!widget.disableInput)
-                                                    CupertinoContextMenuAction(
-                                                      // isDefaultAction: true,
-                                                      isDestructiveAction: true,
-                                                      child:
-                                                          const Text("delete"),
-                                                      onPressed: () async {
-                                                        Future.delayed(
-                                                            const Duration(
-                                                                seconds: 1),
-                                                            () {
-                                                          activeNotifier.value =
-                                                              false;
-                                                        });
-                                                        Navigator.of(context,
-                                                                rootNavigator:
-                                                                    true)
-                                                            .pop();
-                                                        await Future.delayed(
-                                                            const Duration(
-                                                                seconds: 2));
-                                                        imagePathNotifier
-                                                                .value =
-                                                            List.from(value)
-                                                              ..removeAt(index -
-                                                                  (widget.disableInput
-                                                                      ? 0
-                                                                      : 1));
-                                                        if (imageInstance
-                                                                .file !=
-                                                            null) {
-                                                          widget
-                                                              .onLocalDestruction
-                                                              ?.call(
-                                                                  imageInstance
-                                                                      .file!);
-                                                        } else {
-                                                          widget.onDestruction
-                                                              ?.call(imageInstance
-                                                                  .fileNetwork!);
-                                                        }
-
-                                                        // Navigator.pop(context);
-                                                      },
-                                                    ),
-                                                  CupertinoContextMenuAction(
-                                                    onPressed: () =>
-                                                        Navigator.of(context,
-                                                                rootNavigator:
-                                                                    true)
-                                                            .pop(),
-                                                    isDestructiveAction: true,
-                                                    child: const Text("close"),
-                                                  ),
-                                                ],
-                                                enableHapticFeedback: true,
-                                                builder: (BuildContext context,
-                                                    Animation<double>
-                                                        animation) {
-                                                  final double? animationValue =
-                                                      animation.value > 0.01
-                                                          ? null
-                                                          : 100;
-
-                                                  final curveRadiosAnimation =
-                                                      CurvedAnimation(
-                                                    parent: animation,
-                                                    curve: Curves.easeIn,
-                                                  );
-
-                                                  final topPadding = context
-                                                          .screenSize.height *
-                                                      0.1;
-
-                                                  final radiosAnimation =
-                                                      TweenSequence([
-                                                    TweenSequenceItem(
-                                                        tween: Tween<double>(
-                                                            begin: 8, end: 45),
-                                                        weight: 0.1),
-                                                    TweenSequenceItem(
-                                                        tween: Tween<double>(
-                                                            begin: 45, end: 0),
-                                                        weight: 0.9),
-                                                  ]).animate(
-                                                          curveRadiosAnimation);
-
-                                                  return FittedBox(
-                                                    fit: BoxFit.cover,
-                                                    child:
-                                                        ValueListenableBuilder<
-                                                                bool>(
-                                                            valueListenable:
-                                                                activeNotifier,
-                                                            builder: (context,
-                                                                value, _) {
-                                                              return value
-                                                                  ? Image.file(
-                                                                      snapshot
-                                                                          .data!,
-                                                                      frameBuilder: (context,
-                                                                          child,
-                                                                          frame,
-                                                                          wasSynchronouslyLoaded) {
-                                                                        return Padding(
-                                                                          padding:
-                                                                              EdgeInsets.only(top: topPadding * curveRadiosAnimation.value),
-                                                                          child:
-                                                                              ClipRRect(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(radiosAnimation.value),
-                                                                            child:
-                                                                                child,
-                                                                          ),
-                                                                        );
-                                                                      },
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                      height:
-                                                                          animationValue,
-                                                                      width:
-                                                                          animationValue,
-                                                                    )
-                                                                  : const IgnorePointer(
-                                                                      child:
-                                                                          CupertinoActivityIndicator());
-                                                            }),
-                                                  );
-                                                },
-                                              )
-                                            : const CupertinoActivityIndicator();
-                                      })),
+                                  : _ImageRenderer(
+                                      index: index,
+                                      imageInputBox: widget,
+                                      imagePathNotifier: imagePathNotifier,
+                                      imageInstance: imageInstance,
+                                    )),
                         );
                       });
                 },
@@ -337,23 +196,148 @@ class _ImageInputBoxState<T extends ImageInputBoxMixin>
   }
 }
 
-///model for only this widget,
-class ImageInputBoxInstance<T extends ImageInputBoxMixin> {
-  T? fileNetwork;
-  File? file;
+class _ImageRenderer extends StatefulWidget {
+  const _ImageRenderer({
+    super.key,
+    required this.index,
+    required this.imageInputBox,
+    required this.imagePathNotifier,
+    required this.imageInstance,
+  });
 
-  ImageInputBoxInstance({this.file, this.fileNetwork}) {
-    if (fileNetwork == null && file == null) {
-      throw Exception("both attribute cant be null at the sametime");
+  final int index;
+  final ImageInputBox imageInputBox;
+  final ValueNotifier<List<ImageInputBoxInstance>> imagePathNotifier;
+  final ImageInputBoxInstance imageInstance;
+
+  @override
+  State<_ImageRenderer> createState() => _ImageRendererState();
+}
+
+class _ImageRendererState extends State<_ImageRenderer> {
+  final ValueNotifier<bool> activeNotifier = ValueNotifier(false);
+  late ImageProvider imageProvider;
+
+  @override
+  void initState() {
+    final imageInstance = widget.imageInstance;
+    final ImageInputBoxBase sourceImage;
+
+    if (imageInstance.file != null) {
+      imageProvider = FileImage(imageInstance.file!);
+      activeNotifier.value = true;
+    } else {
+      sourceImage = imageInstance.sourceInstance!;
+
+      if (sourceImage is ImageInputBoxNetwork) {
+        sourceImage.uri.then((value) {
+          imageProvider = NetworkImage(value.toString());
+          activeNotifier.value = true;
+        });
+      } else if (sourceImage is ImageInputBoxFile) {
+        sourceImage.file.then((value) {
+          imageProvider = FileImage(value);
+          activeNotifier.value = true;
+        });
+      }
     }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoContextMenu.builder(
+      actions: [
+        if (!widget.imageInputBox.disableInput)
+          CupertinoContextMenuAction(
+            // isDefaultAction: true,
+            isDestructiveAction: true,
+            child: const Text("delete"),
+            onPressed: () async {
+              Future.delayed(const Duration(seconds: 1), () {
+                activeNotifier.value = false;
+              });
+              Navigator.of(context, rootNavigator: true).pop();
+              await Future.delayed(const Duration(seconds: 2));
+              widget.imagePathNotifier
+                  .value = List.from(widget.imagePathNotifier.value)
+                ..removeAt(
+                    widget.index - (widget.imageInputBox.disableInput ? 0 : 1));
+              if (widget.imageInstance.file != null) {
+                widget.imageInputBox.onLocalDestruction
+                    ?.call(widget.imageInstance.file!);
+              } else {
+                widget.imageInputBox.onDestruction
+                    ?.call(widget.imageInstance.sourceInstance!);
+              }
+
+              // Navigator.pop(context);
+            },
+          ),
+        CupertinoContextMenuAction(
+          onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+          isDestructiveAction: true,
+          child: const Text("close"),
+        ),
+      ],
+      enableHapticFeedback: true,
+      builder: (BuildContext context, Animation<double> animation) {
+        final double? animationValue = animation.value > 0.01 ? null : 100;
+
+        final curveRadiosAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Curves.easeIn,
+        );
+
+        final topPadding = context.screenSize.height * 0.1;
+
+        final radiosAnimation = TweenSequence([
+          TweenSequenceItem(
+              tween: Tween<double>(begin: 8, end: 45), weight: 0.1),
+          TweenSequenceItem(
+              tween: Tween<double>(begin: 45, end: 0), weight: 0.9),
+        ]).animate(curveRadiosAnimation);
+
+        return FittedBox(
+          fit: BoxFit.cover,
+          child: ValueListenableBuilder<bool>(
+              valueListenable: activeNotifier,
+              builder: (context, value, _) {
+                return value
+                    ? Image(
+                        image: imageProvider,
+                        frameBuilder:
+                            (context, child, frame, wasSynchronouslyLoaded) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                                top: topPadding * curveRadiosAnimation.value),
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.circular(radiosAnimation.value),
+                              child: child,
+                            ),
+                          );
+                        },
+                        fit: BoxFit.cover,
+                        height: animationValue,
+                        width: animationValue,
+                      )
+                    : const IgnorePointer(child: CupertinoActivityIndicator());
+              }),
+        );
+      },
+    );
   }
 }
 
-///implement this mixin within your class
-///so it can be generic type of [ImageInputBoxInstance]
-///class,
-@Deprecated('use ImageInputBoxMixin instead')
-mixin ImageInputBoxNetwork {
-  ///get [File] instance from the network
-  Future<File> get file;
+///model for only this widget,
+class ImageInputBoxInstance<T extends ImageInputBoxBase> {
+  T? sourceInstance;
+  File? file;
+
+  ImageInputBoxInstance({this.file, this.sourceInstance}) {
+    if (sourceInstance == null && file == null) {
+      throw Exception("both attribute cant be null at the sametime");
+    }
+  }
 }
