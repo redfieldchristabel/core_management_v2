@@ -18,3 +18,5 @@ export 'services/notification_service.dart';
 export 'services/theme_service.dart';
 export 'services/framework_service.dart';
 export 'screens/loading_screen.dart';
+export 'models/framework/loading_rive_animation.dart';
+export 'models/exception.dart';

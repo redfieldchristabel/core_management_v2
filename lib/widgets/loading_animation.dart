@@ -1,3 +1,4 @@
+import 'package:core_management_v2/core_management_v2.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
@@ -14,15 +15,16 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
   @override
   void initState() {
     super.initState();
-    _controller = SimpleAnimation('animating');
+    _controller = SimpleAnimation(BaseFrameworkService
+        .instance.defaultLoadingRiveAnimation.initialAnimationName);
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: RiveAnimation.asset(
-        'assets/rive/loading.riv',
-        animations:  const ['animating'],
+        BaseFrameworkService.instance.defaultLoadingRiveAnimation.assets,
+        animations: const ['animating'],
         controllers: [_controller],
       ),
     );
