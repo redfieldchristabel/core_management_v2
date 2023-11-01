@@ -14,15 +14,28 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
   @override
   void initState() {
     super.initState();
-    _controller = SimpleAnimation('animating');
+    _controller = SimpleAnimation('Loading');
+    // _controller = SimpleAnimation('animating');
   }
 
   @override
   Widget build(BuildContext context) {
-    return RiveAnimation.asset(
-      'assets/rive/loading.riv',
-      animations:  const ['animating'],
-      controllers: [_controller],
+    return Center(
+      child: SizedBox(
+        height: 150,
+        width: 150,
+        child: RiveAnimation.asset(
+          'assets/rive/loading_v2.riv' ,
+          animations:  const ['Loading'],
+          controllers: [_controller],
+        ),
+      ),
     );
+
+    // return RiveAnimation.asset(
+    //   'assets/rive/loading.riv',
+    //   animations:  const ['animating'],
+    //   controllers: [_controller],
+    // );
   }
 }
