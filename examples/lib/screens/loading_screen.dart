@@ -7,16 +7,17 @@ class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: Colors.black,
       body: Stack(
         // mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Positioned(
-            top: 350,
-            left: 125,
-            child: Text(
-              'Collecting data...',
-            ),
-          ),
+          // Positioned(
+          //   top: 350,
+          //   left: 125,
+          //   child: Text(
+          //     'Collecting data...',
+          //   ),
+          // ),
           LoadingAnimation(),
         ],
       ),
