@@ -1,17 +1,13 @@
 import 'package:core_management_v2/core_management_v2.dart';
-import 'package:examples/services/notification_service.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await notificationService.initialiseChanel();
-  await notificationService.initializeFlutterLocalNotificationPlugin();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
+  // await notificationService.initialiseChanel();
+  // await notificationService.initializeFlutterLocalNotificationPlugin();
 
   runApp(const MyApp());
 }
@@ -74,8 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const ImageInputBox(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          notificationService.show(
-              title: "IKAN2", description: 'adhkahdkwajda');
+          // notificationService.show(
+          //     title: "IKAN2", description: 'adhkahdkwajda');
         },
       ),
     );
