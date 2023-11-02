@@ -27,7 +27,7 @@ abstract class BaseFrameworkService {
 
   /// Override this getter to change the default rive file using in [LoadingAnimation]
   LoadingRiveAnimation get defaultLoadingRiveAnimation => LoadingRiveAnimation(
-        assets: 'assets/rive/loading.riv',
+        assets: 'packages/core_management_v2/assets/rive/loading.riv',
         initialAnimationName: 'animating',
       );
 }
