@@ -315,10 +315,10 @@ packages:
     dependency: transitive
     description:
       name: go_router
-      sha256: e1a30a66d734f9e498b1b6522d6a75ded28242bad2359a9158df38a1c30bcf1f
+      sha256: e156bc1b2088eb5ece9351bccd48c3e1719a4858eacbd44e59162e98a68205d1
       url: "https://pub.dev"
     source: hosted
-    version: "10.2.0"
+    version: "12.0.1"
   graphs:
     dependency: transitive
     description:
@@ -539,18 +539,18 @@ packages:
     dependency: "direct main"
     description:
       name: rive
-      sha256: f2117a96a189758bc79bf7933865625c7a44a420ae537d2a8f6c492900136a71
+      sha256: a8740aedb9f5c341c521b3c370bcee6e7cd6363d1a39a565533d7ed2424d6fbe
       url: "https://pub.dev"
     source: hosted
-    version: "0.11.17"
+    version: "0.12.2"
   rive_common:
     dependency: transitive
     description:
       name: rive_common
-      sha256: e41f12917cb58e0c9376836490ebaa431e12744da0c67e19dad8d4bee9fedd46
+      sha256: f4e20d0a99c5040c85624a3eb2b0b6b19e614d93a693c3bb25cf6e7bb2d3d6d3
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.7"
+    version: "0.2.8"
   sky_engine:
     dependency: transitive
     description: flutter
