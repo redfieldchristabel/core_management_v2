@@ -1,3 +1,4 @@
+import 'package:core_management_v2/core_management_v2.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
@@ -24,8 +25,11 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
         height: 150,
         width: 150,
         child: RiveAnimation.asset(
-          'assets/rive/loading_v2.riv' ,
-          animations:  const ['Loading'],
+          BaseFrameworkService.instance.defaultLoadingRiveAnimation.assets,
+          animations: [
+            BaseFrameworkService
+                .instance.defaultLoadingRiveAnimation.initialAnimationName
+          ],
           controllers: [_controller],
         ),
       ),
@@ -64,4 +68,3 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
 //     );
 //   }
 // }
-
