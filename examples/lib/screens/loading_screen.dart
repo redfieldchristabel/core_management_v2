@@ -1,4 +1,4 @@
-import 'package:examples/widgets/loading_animation.dart';
+import 'package:core_management_v2/core_management_v2.dart';
 import 'package:flutter/material.dart';
 
 class LoadingScreen extends StatelessWidget {
