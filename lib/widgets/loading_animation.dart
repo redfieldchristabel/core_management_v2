@@ -26,10 +26,8 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
         width: 150,
         child: RiveAnimation.asset(
           BaseFrameworkService.instance.defaultLoadingRiveAnimation.assets,
-          animations: [
-            BaseFrameworkService
-                .instance.defaultLoadingRiveAnimation.initialAnimationName
-          ],
+          animations: BaseFrameworkService
+              .instance.defaultLoadingRiveAnimation.initialAnimationName,
           controllers: [_controller],
         ),
       ),
