@@ -3,9 +3,14 @@ import 'package:core_management_v2/widgets/loading_animation.dart';
 import 'package:flutter/material.dart';
 
 class LoadingScreen extends StatefulWidget {
-  const LoadingScreen({super.key, this.controller});
+  const LoadingScreen({super.key, this.controller, this.backgroundColor});
 
   final LoadingScreenController? controller;
+
+  /// the background color of the loading screen
+  /// default to theme scaffold background
+  /// respect theme color
+  final Color? backgroundColor;
 
   @override
   State<LoadingScreen> createState() => _LoadingScreenState();
