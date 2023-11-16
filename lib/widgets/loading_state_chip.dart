@@ -94,6 +94,8 @@ class LoadingStateChipController extends ChangeNotifier {
 
   void animateState(LoadingStateChipValue value, {Duration? duration}) {
     _loadingStateChipValue = value;
+    _value = value.name;
+    _iconData = value.iconData;
     notifyListeners();
 
     if (_timer?.isActive ?? false) _timer?.cancel();
