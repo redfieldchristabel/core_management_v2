@@ -140,7 +140,7 @@ abstract class BaseNotificationService {
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestPermission();
+        ?.requestNotificationsPermission();
   }
 
   /// Creates a new notification channel or updates an existing one.
