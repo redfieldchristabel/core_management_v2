@@ -5,8 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoadingStateChip extends StatefulWidget {
-  const LoadingStateChip({Key? key, required this.loadingStateChipController})
-      : super(key: key);
+  const LoadingStateChip({super.key, required this.loadingStateChipController});
 
   final LoadingStateChipController loadingStateChipController;
 
@@ -74,7 +73,7 @@ class LoadingStateChipController extends ChangeNotifier {
   LoadingStateChipValue get loadingStateChipValue => _loadingStateChipValue;
 
   set loadingStateChipValue(LoadingStateChipValue value) {
-    assert(value == LoadingStateChipValue.custom,
+    assert(value != LoadingStateChipValue.custom,
         'custom can\'t be use with this setter. try "setCustomValue"');
     _loadingStateChipValue = value;
     _value = value.name;
