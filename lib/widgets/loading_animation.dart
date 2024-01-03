@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
 class LoadingAnimation extends StatefulWidget {
-  const LoadingAnimation({Key? key}) : super(key: key);
+  const LoadingAnimation({super.key});
 
   @override
   State<LoadingAnimation> createState() => _LoadingAnimationState();
