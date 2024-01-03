@@ -1,8 +1,10 @@
 import 'package:core_management_v2/core_management_v2.dart';
+import 'package:examples/services/framework.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  BaseFrameworkService.initialize(frameworkService);
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
