@@ -1,4 +1,5 @@
 import 'package:core_management_v2/core_management_v2.dart';
+import 'package:core_management_v2/widgets/loading_state_chip.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseFrameworkService {
@@ -30,4 +31,17 @@ abstract class BaseFrameworkService {
         assets: 'packages/core_management_v2/assets/rive/loading_v2.riv',
         initialAnimationName: ['Loading'],
       );
+
+  LoadingStateChipController? _loadingStateChipController;
+
+  initializeLoadingController(LoadingStateChipController controller) {
+    _loadingStateChipController = controller;
+  }
+
+  LoadingStateChipController get loadingStateChipController {
+    if (_loadingStateChipController == null) {
+      throw Exception('LoadingStateChipController is not initialized');
+    }
+    return _loadingStateChipController!;
+  }
 }
