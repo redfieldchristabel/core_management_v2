@@ -20,3 +20,4 @@ export 'services/framework_service.dart';
 export 'screens/loading_screen.dart';
 export 'models/framework/loading_rive_animation.dart';
 export 'models/exception.dart';
+export 'widgets/loading_chip_wrapper.dart';

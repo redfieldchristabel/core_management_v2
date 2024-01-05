@@ -39,7 +39,7 @@ class _LoadingStateChipState extends State<LoadingStateChip> {
       curve: Curves.elasticInOut,
       duration: const Duration(milliseconds: 999),
       child: SizedBox(
-        width: context.screenSize.width * .3,
+        width: context.screenSize.width * .35,
         child: Chip(
           label: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
