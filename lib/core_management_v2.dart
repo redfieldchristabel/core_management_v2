@@ -21,3 +21,5 @@ export 'screens/loading_screen.dart';
 export 'models/framework/loading_rive_animation.dart';
 export 'models/exception.dart';
 export 'widgets/loading_chip_wrapper.dart';
+export 'models/json_converter/timestamp_to_datetime.dart';
+export 'mixins/firebase_instance.dart';
