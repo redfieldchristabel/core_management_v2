@@ -23,3 +23,4 @@ export 'models/exception.dart';
 export 'widgets/loading_chip_wrapper.dart';
 export 'models/json_converter/timestamp_to_datetime.dart';
 export 'mixins/firebase_instance.dart';
+export 'extensions/task_helper.dart';
