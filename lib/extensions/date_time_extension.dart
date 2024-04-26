@@ -18,9 +18,17 @@ extension DateTimeExtension on DateTime {
   /// Extension method on [DateTime] class to convert date time to
   /// localization language using [DateFormat] class from intl package.
   String get dateItlFormatWithTime =>
-      "${DateFormat.yMMMEd().format(toLocal())}, ${DateFormat.jm().format(toLocal())}";
+      "${DateFormat.yMMMEd().format(toLocal())}, ${DateFormat.jm().format(
+          toLocal())}";
 
+  @Deprecated("use timeIntlFormat instead")
   String get timeFormat => DateFormat.jms().format(toLocal());
+
+  /// Format [DateTime] to string using [DateFormat] class from intl package.
+  String get timeIntlFormat => DateFormat.jm().format(toLocal());
+
+  /// Format [DateTime] with second to string using [DateFormat] class from intl package.
+  String get timeIntlFormatWithSecond => DateFormat.jms().format(toLocal());
 }
 
 extension DateTimeTimeofDay on DateTime {
