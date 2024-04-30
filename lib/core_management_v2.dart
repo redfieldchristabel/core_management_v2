@@ -24,3 +24,4 @@ export 'widgets/loading_chip_wrapper.dart';
 export 'models/json_converter/timestamp_to_datetime.dart';
 export 'mixins/firebase_instance.dart';
 export 'extensions/task_helper.dart';
+export 'models/json_converter/time_of_day_to_string.dart';
