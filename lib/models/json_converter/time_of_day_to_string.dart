@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 class TimeOfDayConverter implements JsonConverter<TimeOfDay, int> {
   final bool isMicroseconds;
 
-  TimeOfDayConverter({this.isMicroseconds = false});
+  const TimeOfDayConverter({this.isMicroseconds = false});
 
   @override
   TimeOfDay fromJson(int json) {
