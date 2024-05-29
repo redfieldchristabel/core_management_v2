@@ -37,7 +37,7 @@ mixin ConsumerTaskQueueMixin<T extends ConsumerStatefulWidget>
 
     if (WidgetsBinding.instance.schedulerPhase == SchedulerPhase.idle) {
       _taskQueue.add(() async {
-        callback();
+        if (mounted) callback();
 
         // Process the next task in the queue
         _processTaskQueue();
@@ -78,7 +78,7 @@ mixin TaskQueueMixin<T extends StatefulWidget> on State<T> {
 
     if (WidgetsBinding.instance.schedulerPhase == SchedulerPhase.idle) {
       _taskQueue.add(() async {
-        callback();
+        if (mounted) callback();
 
         // Process the next task in the queue
         _processTaskQueue();
