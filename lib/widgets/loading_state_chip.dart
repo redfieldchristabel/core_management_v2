@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:core_management_v2/extensions/screen_layout_extension.dart';
+import 'package:core_management_v2/core_management_v2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,18 +13,19 @@ class LoadingStateChip extends StatefulWidget {
   State<LoadingStateChip> createState() => _LoadingStateChipState();
 }
 
-class _LoadingStateChipState extends State<LoadingStateChip> {
+class _LoadingStateChipState extends State<LoadingStateChip>
+    with TaskQueueMixin {
   late LoadingStateChipValue value;
 
   @override
   void initState() {
     value = widget.loadingStateChipController.loadingStateChipValue;
     widget.loadingStateChipController.addListener(() {
-      if (mounted) {
+      enqueueTask(() {
         setState(() {
           value = widget.loadingStateChipController.loadingStateChipValue;
         });
-      }
+      });
     });
     super.initState();
   }
