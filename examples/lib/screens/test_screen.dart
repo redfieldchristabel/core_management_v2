@@ -11,7 +11,7 @@ class TestScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          frameworkService.loadingAnimationController.state = LoadingAnimationState.idle;
+          frameworkService.loadingAnimationController.state = LoadingAnimationState.loading;
           frameworkService.loadingStateChipController
               .animateState(LoadingStateChipValue.uploading);
         },

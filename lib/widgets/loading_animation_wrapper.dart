@@ -29,8 +29,9 @@ class _LoadingAnimationWrapperState extends State<LoadingAnimationWrapper>
       _controller.addListener(() {
         if (_controller.state == LoadingAnimationState.loading &&
             loadingOverlay == null) {
-          loadingOverlay =
-              OverlayEntry(builder: (context) => const LoadingAnimation());
+          loadingOverlay = OverlayEntry(
+              builder: (context) =>
+                  const AbsorbPointer(child: LoadingAnimation()));
           _overlayKey.currentState?.insert(loadingOverlay!);
         } else if (_controller.state == LoadingAnimationState.idle &&
             loadingOverlay != null) {
