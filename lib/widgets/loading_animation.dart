@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
 class LoadingAnimation extends StatefulWidget {
-  const LoadingAnimation({super.key});
+  const LoadingAnimation({super.key,  this.controller});
+
+  final RiveAnimationController? controller;
 
   @override
   State<LoadingAnimation> createState() => _LoadingAnimationState();
@@ -15,7 +17,7 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
   @override
   void initState() {
     super.initState();
-    _controller = SimpleAnimation('Loading');
+    _controller = widget.controller ?? SimpleAnimation('Loading');
   }
 
   @override

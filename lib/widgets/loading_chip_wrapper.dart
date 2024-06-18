@@ -1,7 +1,7 @@
-
 import 'package:core_management_v2/core_management_v2.dart';
 import 'package:core_management_v2/widgets/loading_state_chip.dart';
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 
 class LoadingChipWrapper extends StatefulWidget {
   const LoadingChipWrapper({super.key, required this.child});
@@ -14,11 +14,13 @@ class LoadingChipWrapper extends StatefulWidget {
 
 class _LoadingChipWrapperState extends State<LoadingChipWrapper> {
   final LoadingStateChipController _loadingStateChipController =
-  LoadingStateChipController();
+      LoadingStateChipController();
+
 
   @override
   void initState() {
-    BaseFrameworkService.instance.initializeLoadingController(_loadingStateChipController);
+    BaseFrameworkService.instance.initializeLoadingController(
+        chipController: _loadingStateChipController);
     super.initState();
   }
 
@@ -28,17 +30,20 @@ class _LoadingChipWrapperState extends State<LoadingChipWrapper> {
       home: Overlay(
         initialEntries: [
           OverlayEntry(builder: (context) => widget.child),
-          OverlayEntry(builder: (context) => IgnorePointer(
-            child: Material(
-              color: Colors.transparent,
-              child: SafeArea(
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: LoadingStateChip(loadingStateChipController: _loadingStateChipController),
-                ),
-              ),
-            ),
-          )),
+          OverlayEntry(
+              builder: (context) => IgnorePointer(
+                    child: Material(
+                      color: Colors.transparent,
+                      child: SafeArea(
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: LoadingStateChip(
+                              loadingStateChipController:
+                                  _loadingStateChipController),
+                        ),
+                      ),
+                    ),
+                  )),
         ],
       ),
     );
