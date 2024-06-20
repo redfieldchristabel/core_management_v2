@@ -38,6 +38,7 @@ dependencies:
   core_management_v2:
     path: ./../
   rive: ^0.13.7
+  cloud_firestore: ^4.17.5
 
 dev_dependencies:
   flutter_test:
