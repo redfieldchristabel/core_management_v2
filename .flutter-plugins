@@ -1,4 +1,6 @@
 # This is a generated file; do not edit or check into version control.
+cloud_firestore=/home/hayabusa/.pub-cache/hosted/pub.dev/cloud_firestore-5.0.1/
+cloud_firestore_web=/home/hayabusa/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.0.1/
 file_selector_linux=/home/hayabusa/.pub-cache/hosted/pub.dev/file_selector_linux-0.9.2+1/
 file_selector_macos=/home/hayabusa/.pub-cache/hosted/pub.dev/file_selector_macos-0.9.4/
 file_selector_windows=/home/hayabusa/.pub-cache/hosted/pub.dev/file_selector_windows-0.9.3+1/
