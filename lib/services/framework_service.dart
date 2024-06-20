@@ -1,5 +1,6 @@
 import 'package:core_management_v2/controllers/loading_animation.dart';
 import 'package:core_management_v2/core_management_v2.dart';
+import 'package:core_management_v2/models/framework/loading_rive_animation.dart';
 import 'package:core_management_v2/widgets/loading_state_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
@@ -33,6 +34,11 @@ abstract class BaseFrameworkService {
         assets: 'packages/core_management_v2/assets/rive/loading_v2.riv',
         initialAnimationName: ['Loading'],
       );
+
+  RiveAnimationController? Function(Artboard art)? get onRiveAnimationLoadingInit => null;
+
+  Future<void> Function(Artboard art, RiveAnimationController? ctrl)?
+      get onRiveAnimationLoadingComplete => null;
 
   LoadingStateChipController? _loadingStateChipController;
 
@@ -69,7 +75,8 @@ abstract class BaseFrameworkService {
 
   RiveAnimationController get riveAnimationController {
     if (_riveAnimationController == null) {
-      throw Exception('RiveAnimationController is not initialized');
+      return SimpleAnimation('Loading');
+      throw UnimplementedError('RiveAnimationController is not initialized');
     }
     return _riveAnimationController!;
   }

@@ -1,6 +1,7 @@
 import 'package:core_management_v2/controllers/loading_animation.dart';
 import 'package:core_management_v2/core_management_v2.dart';
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 
 class LoadingAnimationWrapper extends StatefulWidget {
   const LoadingAnimationWrapper({super.key, required this.child});
@@ -20,28 +21,55 @@ class _LoadingAnimationWrapperState extends State<LoadingAnimationWrapper>
 
   OverlayEntry? loadingOverlay;
 
+  RiveAnimationController? get riveAnimationController {
+    try {
+      return framework.riveAnimationController;
+    } on UnimplementedError catch (e) {
+      return null;
+    }
+  }
+
   @override
   void initState() {
-    BaseFrameworkService.instance
-        .initializeLoadingController(animationController: _controller);
+    framework.initializeLoadingController(animationController: _controller);
+
+    Artboard? artBoard;
+    RiveAnimationController? ctrl;
 
     enqueueTask(() {
-      _controller.addListener(() {
+      _controller.addListener(() async {
         if (_controller.state == LoadingAnimationState.loading &&
             loadingOverlay == null) {
           loadingOverlay = OverlayEntry(
-              builder: (context) =>
-                  const AbsorbPointer(child: LoadingAnimation()));
+              builder: (context) => AbsorbPointer(
+                  child: LoadingAnimation(
+                      controller: riveAnimationController,
+                      onInit: (art) {
+                        artBoard = art;
+                        ctrl = framework.onRiveAnimationLoadingInit?.call(art);
+                      })));
           _overlayKey.currentState?.insert(loadingOverlay!);
         } else if (_controller.state == LoadingAnimationState.idle &&
             loadingOverlay != null) {
           loadingOverlay?.remove();
           loadingOverlay = null;
+          artBoard?.remove();
+          artBoard = null;
+        } else if (_controller.state == LoadingAnimationState.completed &&
+            loadingOverlay != null) {
+          if (artBoard != null) {
+            await framework.onRiveAnimationLoadingComplete
+                ?.call(artBoard!, ctrl);
+          }
+          framework.loadingAnimationController.state =
+              LoadingAnimationState.idle;
         }
       });
     });
     super.initState();
   }
+
+  BaseFrameworkService get framework => BaseFrameworkService.instance;
 
   // get controller => BaseFrameworkService.instance.loadingAnimationController;
 

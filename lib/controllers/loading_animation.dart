@@ -40,4 +40,4 @@ class LoadingAnimationController extends ChangeNotifier {
   }
 }
 
-enum LoadingAnimationState { idle, loading }
+enum LoadingAnimationState { idle, loading, completed }

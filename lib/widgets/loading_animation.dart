@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
 class LoadingAnimation extends StatefulWidget {
-  const LoadingAnimation({super.key,  this.controller});
+  const LoadingAnimation(
+      {super.key, this.controller, this.onInit, this.stateMachines = const []});
 
+  final void Function(Artboard)? onInit;
   final RiveAnimationController? controller;
+  final List<String> stateMachines;
 
   @override
   State<LoadingAnimation> createState() => _LoadingAnimationState();
@@ -17,7 +20,7 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
   @override
   void initState() {
     super.initState();
-    _controller = widget.controller ?? SimpleAnimation('Loading');
+    _controller = widget.controller ?? BaseFrameworkService.instance.riveAnimationController;
   }
 
   @override
@@ -31,6 +34,8 @@ class _LoadingAnimationState extends State<LoadingAnimation> {
           animations: BaseFrameworkService
               .instance.defaultLoadingRiveAnimation.initialAnimationName,
           controllers: [_controller],
+          stateMachines: widget.stateMachines,
+          onInit: widget.onInit,
         ),
       ),
     );
