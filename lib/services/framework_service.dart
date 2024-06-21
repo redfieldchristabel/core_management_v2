@@ -55,8 +55,6 @@ abstract class BaseFrameworkService {
         animationController ?? _loadingAnimationController;
     _riveAnimationController =
         riveAnimationController ?? _riveAnimationController;
-    print("init laoding ${_loadingAnimationController == null}");
-    print("init laoding ${loadingAnimationController.state}");
   }
 
   LoadingStateChipController get loadingStateChipController {
