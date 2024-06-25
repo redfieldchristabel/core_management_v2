@@ -16,7 +16,6 @@ class _LoadingChipWrapperState extends State<LoadingChipWrapper> {
   final LoadingStateChipController _loadingStateChipController =
       LoadingStateChipController();
 
-
   @override
   void initState() {
     BaseFrameworkService.instance.initializeLoadingController(
@@ -27,23 +26,21 @@ class _LoadingChipWrapperState extends State<LoadingChipWrapper> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Overlay(
-        initialEntries: [
-          OverlayEntry(builder: (context) => widget.child),
-          OverlayEntry(
-              builder: (context) => IgnorePointer(
-                    child: Material(
-                      color: Colors.transparent,
-                      child: SafeArea(
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: LoadingStateChip(
-                              loadingStateChipController:
-                                  _loadingStateChipController),
-                        ),
-                      ),
-                    ),
-                  )),
+      home: Stack(
+        children: [
+          widget.child,
+          IgnorePointer(
+            child: Material(
+              color: Colors.transparent,
+              child: SafeArea(
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: LoadingStateChip(
+                      loadingStateChipController: _loadingStateChipController),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
