@@ -3,6 +3,20 @@ import 'package:core_management_v2/widgets/loading_state_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
+/// Widget that wraps a child widget in a loading state chip.
+/// Don't wrap MaterialApp with this widget.
+///  ```dart
+///      return MaterialApp.router(
+///       routerConfig: _config,
+///       theme: frameworkService.themeData,
+///       title: 'Flutter Demo',
+///       builder: (context, child) {
+///         return LoadingChipWrapper(
+///          child: child!,
+///         );
+///       },
+///     );
+///  ```
 class LoadingChipWrapper extends StatefulWidget {
   const LoadingChipWrapper({super.key, required this.child});
 
