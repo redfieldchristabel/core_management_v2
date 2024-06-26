@@ -44,7 +44,7 @@ extension DateTimeTimeofDay on DateTime {
 
 extension SecondsSinceMidnight on TimeOfDay {
   /// Returns the number of seconds since midnight.
-  int get secondsSinceMidnight => (hour * 60 + minute * 60) * 60;
+  int get secondsSinceMidnight => (hour * 60 + minute) * 60;
 
   /// Create a new [TimeOfDay] instance from the number of seconds since midnight.
   static TimeOfDay fromSecondsSinceMidnight(int seconds) {
