@@ -25,24 +25,22 @@ class _LoadingChipWrapperState extends State<LoadingChipWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Stack(
-        children: [
-          widget.child,
-          IgnorePointer(
-            child: Material(
-              color: Colors.transparent,
-              child: SafeArea(
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: LoadingStateChip(
-                      loadingStateChipController: _loadingStateChipController),
-                ),
+    return Stack(
+      children: [
+        widget.child,
+        IgnorePointer(
+          child: Material(
+            color: Colors.transparent,
+            child: SafeArea(
+              child: Align(
+                alignment: Alignment.topRight,
+                child: LoadingStateChip(
+                    loadingStateChipController: _loadingStateChipController),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
