@@ -75,11 +75,13 @@ class _LoadingAnimationWrapperState extends State<LoadingAnimationWrapper>
 
   @override
   Widget build(BuildContext context) {
-    return Overlay(
-      key: _overlayKey,
-      initialEntries: [
-        OverlayEntry(builder: (context) => widget.child),
-      ],
+    return Material(
+      child: Overlay(
+        key: _overlayKey,
+        initialEntries: [
+          OverlayEntry(builder: (context) => widget.child),
+        ],
+      ),
     );
   }
 }
