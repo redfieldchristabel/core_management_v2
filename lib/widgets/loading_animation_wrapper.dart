@@ -76,6 +76,7 @@ class _LoadingAnimationWrapperState extends State<LoadingAnimationWrapper>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: BaseFrameworkService.instance.themeData,
       home: Overlay(
         key: _overlayKey,
         initialEntries: [
