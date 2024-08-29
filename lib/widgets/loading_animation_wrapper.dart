@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
 class LoadingAnimationWrapper extends StatefulWidget {
-  const LoadingAnimationWrapper({super.key, required this.child});
+  const LoadingAnimationWrapper(
+      {super.key, required this.child, this.noMaterialApp = false});
 
   final Widget child;
+  final bool noMaterialApp;
 
   @override
   State<LoadingAnimationWrapper> createState() =>
@@ -75,6 +77,15 @@ class _LoadingAnimationWrapperState extends State<LoadingAnimationWrapper>
 
   @override
   Widget build(BuildContext context) {
+    if (widget.noMaterialApp) {
+      return Overlay(
+        key: _overlayKey,
+        initialEntries: [
+          OverlayEntry(builder: (context) => widget.child),
+        ],
+      );
+    }
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: BaseFrameworkService.instance.themeData,
