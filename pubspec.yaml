@@ -7,12 +7,22 @@ environment:
   sdk: '>=2.19.6 <3.0.0'
   flutter: ">=1.17.0"
 
+isar_version: &isar_version 3.1.8 # define the version to be used
+
 dependencies:
+  isar:
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
+  isar_flutter_libs: # contains Isar Core
+      version: *isar_version
+      hosted: https://pub.isar-community.dev/
+
   cloud_firestore: ^5.0.1
   firebase_messaging: ^15.0.1
   flip_card: ^0.7.0
   flutter:
     sdk: flutter
+
   flutter_flip_card: ^0.0.4
   flutter_local_notifications: ^17.0.1
   flutter_riverpod: ^2.5.1
@@ -21,13 +31,17 @@ dependencies:
   http: ^1.1.0
   image_picker: ^1.0.1
   intl: ^0.19.0
-  isar: ^3.1.0+1
+#  isar: ^3.1.0+1
   json_annotation: ^4.8.1
   optimization_battery: ^0.0.7
   responsive_framework: ^1.0.0
   rive: ^0.13.3
 
 dev_dependencies:
+  isar_generator:
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
+  build_runner: any
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
