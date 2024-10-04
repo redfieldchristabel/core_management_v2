@@ -1,6 +1,7 @@
 # This is a generated file; do not edit or check into version control.
 cloud_firestore=/home/hayabusa/.pub-cache/hosted/pub.dev/cloud_firestore-5.4.4/
 cloud_firestore_web=/home/hayabusa/.pub-cache/hosted/pub.dev/cloud_firestore_web-4.3.2/
+disable_battery_optimization=/home/hayabusa/.pub-cache/hosted/pub.dev/disable_battery_optimization-1.1.1/
 file_selector_linux=/home/hayabusa/.pub-cache/hosted/pub.dev/file_selector_linux-0.9.3/
 file_selector_macos=/home/hayabusa/.pub-cache/hosted/pub.dev/file_selector_macos-0.9.4+1/
 file_selector_windows=/home/hayabusa/.pub-cache/hosted/pub.dev/file_selector_windows-0.9.3+3/
@@ -20,5 +21,4 @@ image_picker_linux=/home/hayabusa/.pub-cache/hosted/pub.dev/image_picker_linux-0
 image_picker_macos=/home/hayabusa/.pub-cache/hosted/pub.dev/image_picker_macos-0.2.1+1/
 image_picker_windows=/home/hayabusa/.pub-cache/hosted/pub.dev/image_picker_windows-0.2.1+1/
 isar_flutter_libs=/home/hayabusa/.pub-cache/hosted/pub.isar-community.dev/isar_flutter_libs-3.1.8/
-optimization_battery=/home/hayabusa/.pub-cache/hosted/pub.dev/optimization_battery-0.0.7/
 rive_common=/home/hayabusa/.pub-cache/hosted/pub.dev/rive_common-0.4.11/

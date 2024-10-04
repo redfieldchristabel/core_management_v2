@@ -1,7 +1,8 @@
 // import 'package:dbkl_sppc/screens/spupc_app_theme.dart';
 import 'package:core_management_v2/core_management_v2.dart';
+import 'package:disable_battery_optimization/disable_battery_optimization.dart';
 import 'package:flutter/material.dart';
-import 'package:optimization_battery/optimization_battery.dart';
+// import 'package:optimization_battery/optimization_battery.dart';
 
 //TODO make it modular and customizable by consumer
 class EnableNotificationsAlert extends StatelessWidget {
@@ -13,7 +14,7 @@ class EnableNotificationsAlert extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0),
       child: Column(
         children: [
-           Icon(
+          Icon(
             Icons.notifications_active_outlined,
             color: context.themeData.primaryColor,
             size: 70,
@@ -47,8 +48,10 @@ class EnableNotificationsAlert extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: ElevatedButton(
-                onPressed: () {
-                  OptimizationBattery.openBatteryOptimizationSettings();
+                onPressed: () async {
+                  await DisableBatteryOptimization.showEnableAutoStartSettings(
+                      "Enable Auto Start",
+                      "Follow the steps and enable the auto start of this app");
                 },
                 child: Text(
                   "Buka Tetapan Peranti",
