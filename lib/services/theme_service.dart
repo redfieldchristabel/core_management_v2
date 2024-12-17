@@ -51,7 +51,7 @@ abstract class BaseThemeService {
           ThemeData innerThemeData) =>
       innerThemeData.floatingActionButtonTheme;
 
-  CardTheme cardTheme(ThemeData themeData, bool darkMode) {
+  CardThemeData cardTheme(ThemeData themeData, bool darkMode) {
     return themeData.cardTheme;
   }
 
@@ -257,7 +257,7 @@ abstract class BaseThemeService {
   /// ```dart
   /// TabBarTheme myTabBarTheme =  tabBarTheme(myThemeData, true);
   /// ```
-  TabBarTheme tabBarTheme(ThemeData themeData, bool darkMode) {
+  TabBarThemeData tabBarTheme(ThemeData themeData, bool darkMode) {
     return themeData.tabBarTheme;
   }
 
