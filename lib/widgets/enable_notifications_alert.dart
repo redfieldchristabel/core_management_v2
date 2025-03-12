@@ -1,6 +1,5 @@
 // import 'package:dbkl_sppc/screens/spupc_app_theme.dart';
 import 'package:core_management_v2/core_management_v2.dart';
-import 'package:disable_battery_optimization/disable_battery_optimization.dart';
 import 'package:flutter/material.dart';
 // import 'package:optimization_battery/optimization_battery.dart';
 
@@ -49,9 +48,9 @@ class EnableNotificationsAlert extends StatelessWidget {
               padding: const EdgeInsets.all(5.0),
               child: ElevatedButton(
                 onPressed: () async {
-                  await DisableBatteryOptimization.showEnableAutoStartSettings(
-                      "Enable Auto Start",
-                      "Follow the steps and enable the auto start of this app");
+                  // await DisableBatteryOptimization.showEnableAutoStartSettings(
+                  //     "Enable Auto Start",
+                  //     "Follow the steps and enable the auto start of this app");
                 },
                 child: Text(
                   "Buka Tetapan Peranti",
